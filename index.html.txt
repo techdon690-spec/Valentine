@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #000000, #ff4d88);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      color: white;
+    }
+
+    #question, #result {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: auto;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background-color: #ff4d88;
+      color: white;
+      left: 40px;
+    }
+
+    #noBtn {
+      background-color: black;
+      color: pink;
+      border: 2px solid pink;
+      left: 160px;
+    }
+
+    #result img {
+      width: 260px;
+      border-radius: 20px;
+      border: 4px solid pink;
+      margin-top: 20px;
+      box-shadow: 0 0 20px pink;
+    }
+
+    .heart {
+      position: fixed;
+      color: pink;
+      font-size: 20px;
+      animation: float 5s linear infinite;
+    }
+
+    .rose {
+      position: fixed;
+      bottom: 0;
+      font-size: 30px;
+      animation: float 6s linear infinite;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: pink;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="question">
+  <h1>Miss Brooks… will you be my Valentine? 🌹💖</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+<div id="result" style="display:none;">
+  <h1>You said YES, Miss Brooks 🥰🌸</h1>
+  <p>Happy Valentine’s Day 💖 I hope this made you smile.</p>
+  <img src="valentine.jpg" alt="Valentine Image">
+</div>
+
+<audio id="music" src="love.mp3"></audio>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const question = document.getElementById("question");
+  const result = document.getElementById("result");
+  const music = document.getElementById("music");
+
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 200;
+    const y = Math.random() * 150;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    question.style.display = "none";
+    result.style.display = "block";
+    music.play();
+    launchConfetti();
+  });
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  function createRose() {
+    const rose = document.createElement("div");
+    rose.classList.add("rose");
+    rose.innerHTML = "🌹";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.animationDuration = Math.random() * 3 + 4 + "s";
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 6000);
+  }
+
+  function launchConfetti() {
+    for (let i = 0; i < 80; i++) {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor = i % 2 === 0 ? "pink" : "hotpink";
+      confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  }
+
+  setInterval(createHeart, 500);
+  setInterval(createRose, 1500);
+</script>
+
+</body>
+</html>
